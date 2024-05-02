@@ -1,0 +1,99 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import { Image } from "astro:assets";
+import heroImage from "@images/heroImage.jpg";
+import PrimaryCTA from "../components/ui/PrimaryCTA.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+//import collections
+import { getCollection } from "astro:content";
+const products = await getCollection("products");
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body class="flex flex-col min-h-screen">
+        <Header />
+        <main class="w-full flex-grow">
+            <!-- Shop all -->
+            <section class="section mx-auto py-[6%]">
+                <!-- Block for title and subtitle -->
+                <div
+                    class="container w-[95%] max-w-[84rem] mx-auto space-y-8 lg:space-y-12"
+                >
+                    <div class="grid md:gap-8 md:grid-cols-2 items-start">
+                        <!-- Rendering title -->
+                        <h2
+                            class="text-balance text-2xl font-bold text-neutral-800 md:text-3xl lg:text-4xl"
+                        >
+                            All our finds in one place
+                        </h2>
+                        <!-- Rendering subtitle -->
+
+                        <p class="text-lg text-pretty text-neutral-800">
+                            Here, find all the items that came accross our
+                            Instagram and Pinterest feed over the last 30 days.
+                        </p>
+                    </div>
+                    <div
+                        class="w-full"
+                    >
+                        <!-- Block to display the card-product components -->
+                        <div
+                            class="mx-auto w-full max-w-7xl columns-2 items-start gap-6 space-y-6 overflow-x-auto pt-8 lg:columns-3 lg:gap-8 lg:space-y-8 lg:pt-12 xl:columns-4"
+                        >
+                            <!-- Injecting all product -->
+
+                            {
+                                products.map((products) => (
+                                    <article class="flex flex-col rounded-xl border bg-white shadow-sm">
+                                        <img
+                                            class="h-auto max-h-64 w-full rounded-t-xl object-cover object-bottom"
+                                            src={products.data.imgCard}
+                                            alt={products.data.imgAlt}
+                                        />
+                                        <div class="p-4 md:p-5">
+                                            <h3 class="text-lg font-semibold text-gray-800">
+                                                {products.data.title}
+                                            </h3>
+                                            <p class="mt-1 mb-6 text-gray-700">
+                                                {products.data.description}
+                                            </p>
+                                            <a
+                                                class="group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-semibold text-neutral-50 ring-orange-500 transition duration-300 focus-visible:ring outline-none
+									bg-orange-500 hover:bg-orange-500/90 hover:text-orange-50 active:bg-orange-500"
+                                                href="#"
+                                            >
+                                                Buy On Amazon
+                                                <svg
+                                                    class="flex-shrink-0 size-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path d="m9 18 6-6-6-6" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </article>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

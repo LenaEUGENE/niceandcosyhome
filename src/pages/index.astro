@@ -3,7 +3,6 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import { Image } from "astro:assets";
 import heroImage from "@images/heroImage.jpg";
-import PrimaryCTA from "../components/ui/PrimaryCTA.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
@@ -21,7 +20,9 @@ const products = await getCollection("products");
 		<Header />
 		<main class="w-full flex-grow">
 			<!-- Hero -->
-			<section class="section mx-auto py-[6%]">
+			<section
+				class="section mx-auto py-[6%] space-y-8 px-4 pt-16 sm:px-6 lg:px-8 2xl:max-w-full"
+			>
 				<div class="container w-[95%] max-w-[84rem] mx-auto">
 					<!-- Grid -->
 					<div
@@ -97,16 +98,16 @@ const products = await getCollection("products");
 				<div
 					class="container w-[95%] max-w-[84rem] mx-auto space-y-8 lg:space-y-12"
 				>
-					<div class="grid md:grid-cols-2 items-start">
+					<div class="grid md:grid-cols-2 gap-6 lg:gap-8 items-start">
 						<!-- Rendering title -->
 						<h2
-							class="text-balance text-2xl font-bold text-neutral-800 md:text-3xl lg:text-4xl"
+							class="text-balance text-3xl font-bold text-neutral-800 md:text-3xl lg:text-4xl xl:text-5xl"
 						>
 							Our Most wanted Finds
 						</h2>
 						<!-- Rendering subtitle -->
 
-						<p class="text-lg text-pretty text-neutral-800">
+						<p class="text-xl text-pretty text-neutral-800">
 							Here, find the most searched after items, on Nice
 							and Cosy home website and Instagram feed, in the
 							last 30 days.

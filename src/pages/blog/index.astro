@@ -1,14 +1,15 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { Image } from "astro:assets";
+import PostCardList from "@components/ui/PostCardList.astro";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+//import collections
+import { getCollection } from "astro:content";
+const products = await getCollection("products");
 ---
 
 <!doctype html>
@@ -85,25 +86,82 @@ const posts = (await getCollection('blog')).sort(
 			}
 		</style>
 	</head>
-	<body>
+	<body class="flex flex-col min-h-screen">
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+		<main class="min-w-full flex-grow">
+			<!-- Most Wanted -->
+			<section class="section mx-auto py-[6%]">
+				<!-- Block for title and subtitle -->
+				<div
+					class="container w-[95%] max-w-[84rem] mx-auto space-y-8 lg:space-y-12"
+				>
+					<div class="grid md:grid-cols-2 gap-6 lg:gap-8 items-start">
+						<!-- Rendering title -->
+						<h2
+							class="text-balance text-3xl font-bold text-neutral-800 md:text-4xl xl:text-5xl"
+						>
+							Shop all our finds of the last 90 days
+						</h2>
+						<!-- Rendering subtitle -->
+
+						<p class="text-lg lg:text-xl text-pretty text-neutral-800">
+							Here, find all the items seen on our social media account, and the most searched items over time on Nice
+							and Cosy home website and Instagram feed, in the
+							last 90 days.
+						</p>
+					</div>
+					<div
+						class="grid md:grid-cols-2 gap-6 lg:grid-cols-3 lg:gap-8 md:items-center"
+					>
+						<!-- Block to display the card-product components -->
+						<div
+							class="col-span-3 grid gap-8 lg:grid-cols-2 lg:gap-8"
+						>
+							<!-- Injecting Most wanted components with different properties -->
+
+							{
+								products.map((products) => (
+									<div class="flex flex-col rounded-xl border bg-white shadow-sm">
+										<img
+											class="h-auto max-h-64 w-full rounded-t-xl object-cover object-bottom"
+											src={products.data.imgCard}
+											alt={products.data.imgAlt}
+										/>
+										<div class="p-4 md:p-5">
+											<h3 class="text-lg font-semibold text-gray-800">
+												{products.data.title}
+											</h3>
+											<p class="mt-1 mb-6 text-gray-700">
+												{products.data.description}
+											</p>
+											<a
+												class="group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-semibold text-neutral-50 ring-orange-500 transition duration-300 focus-visible:ring outline-none
+									bg-orange-500 hover:bg-orange-500/90 hover:text-orange-50 active:bg-orange-500"
+												href="#"
+											>
+												Buy On Amazon
+												<svg
+													class="flex-shrink-0 size-4"
+													xmlns="http://www.w3.org/2000/svg"
+													width="24"
+													height="24"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="m9 18 6-6-6-6" />
+												</svg>
+											</a>
+										</div>
+									</div>
+								))
+							}
+						</div>
+					</div>
+				</div>
 			</section>
 		</main>
 		<Footer />

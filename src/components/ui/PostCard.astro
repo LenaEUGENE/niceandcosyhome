@@ -1,0 +1,47 @@
+---
+import FormattedDate from "../../components/FormattedDate.astro";
+import PrimaryCTA from "@components/ui/PrimaryCTA.astro";
+import { Image } from "astro:assets";
+
+---
+
+<article>
+    <div class="rounded-lg space-y-4">
+        <img
+            class="rounded-xl object-cover"
+            src={post.data.heroImage}
+            alt={post.data.imageAlt}
+            draggable={"false"}
+            loading={"eager"}
+        />
+    </div>
+    <div class="sm:order-1">
+        <!-- Blog title  -->
+        <h3
+            class="text-balance text-2xl font-bold tracking-tight text-neutral-800 md:text-3xl lg:leading-tight xl:leading-tight"
+        >
+            {post.data.title}
+        </h3>
+
+        <p class="mt-1 text-gray-700 line-clamp-2">
+            {post.data.insert}
+        </p>
+        <!-- Read More button which is a link to the blog post detailed page -->
+        <div class="mt-5">
+            <PrimaryCTA
+                url={`/blog/${post.slug}/`}
+                title="Read More"
+                data-astro-prefetch
+            />
+        </div>
+    </div>
+    <div class="cta w-full">
+        <a
+            class="group flex w-fit items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-semibold text-neutral-50 ring-orange-500 transition duration-300 focus-visible:ring outline-none
+										bg-orange-500 hover:bg-orange-500/90 hover:text-orange-50 active:bg-orange-500"
+            href={`/blog/${post.slug}/`}
+        >
+            <span>Read More</span>
+        </a>
+    </div>
+</article>
